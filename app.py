@@ -23,7 +23,7 @@ st.markdown("""
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     </style>
-    """, unsafe_allow_stdio=True)
+    """, unsafe_allow_html=True) # CORREGIDO: de stdio a html
 
 # --- TÍTULO Y HEADER ---
 st.title("🚀 TechStore: Sistema de Analytics Predictivo")
