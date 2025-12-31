@@ -23,7 +23,7 @@ st.markdown("""
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     </style>
-    """, unsafe_allow_stdio=True)
+    """, unsafe_allow_html=True)
 
 # --- TÍTULO Y HEADER ---
 st.title("🚀 TechStore: Sistema de Analytics Predictivo")
@@ -34,27 +34,27 @@ st.info("Plataforma integral para la optimización de ventas y segmentación de 
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.metric("Precisión (R²)", "92%", "+5% vs Q3")
+    st.metric("Precisión (R²)", "92%", "Optimizado")
 with col2:
-    st.metric("ROI Marketing", "2.4x", "Óptimo")
+    st.metric("ROI Marketing", "2.4x", "Proyectado")
 with col3:
-    st.metric("Tasa de Churn", "12%", "-2% vs 2024")
+    st.metric("Tasa de Churn", "12%", "-2%")
 with col4:
-    st.metric("Clientes Activos", "2,000", "Base Fiel")
+    st.metric("Clientes Activos", "2,000", "Base")
 
 st.markdown("---")
 
-# --- SECCIÓN 2: SIMULADOR DE ESCENARIOS (FASE 4) ---
+# --- SECCIÓN 2: SIMULADOR DE ESCENARIOS ---
 st.sidebar.header("🛠️ Configuración de Escenarios")
 st.sidebar.markdown("Ajuste los parámetros para ver el impacto en tiempo real.")
 
 presupuesto = st.sidebar.slider("Inversión Marketing (€)", 10000, 50000, 18000)
 cambio_precio = st.sidebar.slider("Variación de Precio (%)", -20, 20, 0)
 
-# Lógica del simulador (Basada en Fase 2)
+# Lógica del simulador
 venta_base = 150000
 impacto_mkt = (presupuesto - 18000) * 0.45
-elasticidad = -1.8  # Sensibilidad promedio
+elasticidad = -1.8  
 ajuste_precio = 1 + (cambio_precio / 100 * elasticidad)
 proyeccion = (venta_base + impacto_mkt) * ajuste_precio
 
@@ -62,8 +62,7 @@ c1, c2 = st.columns([2, 1])
 
 with c1:
     st.subheader("📊 Proyección de Ventas Mensuales")
-    # Generar un gráfico de tendencia simple
-    meses = ['Mes Actual', 'Proyección']
+    meses = ['Estado Actual', 'Escenario Proyectado']
     valores = [venta_base, proyeccion]
     fig_ventas = px.bar(x=meses, y=valores, color=meses, 
                         labels={'x': 'Escenario', 'y': 'Ventas (€)'},
@@ -71,25 +70,25 @@ with c1:
     st.plotly_chart(fig_ventas, use_container_width=True)
 
 with c2:
-    st.subheader("💰 Resultado")
-    st.write(f"Con los ajustes seleccionados, la venta proyectada es de:")
+    st.subheader("💰 Resultado Económico")
+    st.write("Venta proyectada basada en simulación:")
     st.header(f"€{proyeccion:,.2f}")
     diferencia = proyeccion - venta_base
     color = "green" if diferencia >= 0 else "red"
     st.markdown(f"<p style='color:{color}; font-size:20px;'><b>Impacto: €{diferencia:,.2f}</b></p>", unsafe_allow_html=True)
 
-# --- SECCIÓN 3: SEGMENTACIÓN (FASE 3) ---
+# --- SECCIÓN 3: SEGMENTACIÓN ---
 st.markdown("---")
 st.subheader("👥 Distribución de Segmentos de Clientes")
 
 df_segmentos = pd.DataFrame({
     'Segmento': ['VIP', 'En Riesgo', 'Potencial', 'Nuevos'],
-    'Cantidad': [450, 240, 600, 710],
-    'ROI': [4.5, 2.1, 3.2, 1.8]
+    'Cantidad': [450, 240, 600, 710]
 })
 
 fig_pie = px.pie(df_segmentos, values='Cantidad', names='Segmento', hole=0.4,
-                 color_discrete_sequence=px.colors.qualitative.Pastel)
+                 color_discrete_sequence=px.colors.qualitative.Pastel,
+                 title="Segmentación RFM Automatizada")
 st.plotly_chart(fig_pie, use_container_width=True)
 
 # --- PIE DE PÁGINA ---
